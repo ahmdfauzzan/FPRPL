@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu-image {
+  max-width: 200px; /* Adjust as needed */
+  max-height: 150px; /* Adjust as needed */
+  /* Add any other styling as necessary */
+}
