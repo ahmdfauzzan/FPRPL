@@ -5,7 +5,7 @@ import { Header } from "../assets/components/Header";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // Import signOut dari firebase/auth
 import app from "./firebase"; // Asumsikan ini adalah path yang benar ke konfigurasi Firebase Anda
-import Cookies from "js-cookie"; // Import library Cookies
+
 import { v4 as uuidv4 } from "uuid";
 
 export default function Home() {
@@ -83,29 +83,9 @@ export default function Home() {
       });
   };
 
-  // Fungsi untuk logout
-  const handleLogout = () => {
-    // Hapus token dari cookies
-    Cookies.remove("userToken");
-    Cookies.remove("userUid");
-    // Logout pengguna
-    signOut(auth)
-      .then(() => {
-        // Redirect ke halaman login setelah logout
-        navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Failed to logout", error);
-      });
-  };
-
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
-      {/* Tombol Logout */}
-      <button onClick={handleLogout} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded m-4">
-        Logout
-      </button>
       <h2 className="text-center text-2xl font-semibold mb-6 mt-2">Daftar Menu</h2>
       <div className="text-center mb-4">
         <label htmlFor="categoryFilter">Pilih kategori menu: </label>
