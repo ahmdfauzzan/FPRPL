@@ -10,6 +10,7 @@ import RegisterFirebase from "../pages/RegisterFirebase";
 import LoginFirebase from "../pages/LoginFirebase";
 // import { ProtectedRoute } from "../assets/components/ProtectedRoute";
 import { RiwayatPesanan } from "../pages/RiwayatPesanan";
+import Profile from "../pages/Profile";
 
 export const RouterList = () => {
   return (
@@ -27,6 +28,7 @@ export const RouterList = () => {
         <Route path="/login" element={<LoginFirebase />} />
         <Route path="/keranjang" element={<Keranjang />} />
         <Route path="/riwayat" element={<RiwayatPesanan />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

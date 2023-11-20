@@ -1,22 +1,35 @@
 import React, { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import app from "./firebase"; // Pastikan ini adalah path yang benar ke file konfigurasi Firebase Anda
+import { useNavigate } from "react-router-dom";
 
 export const RegisterFirebase = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState("");
   const auth = getAuth(app);
+  const navigate = useNavigate();
 
   const handleRegister = (event) => {
-    event.preventDefault(); // Mencegah page reload
+    event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // User registered
-        console.log(userCredential);
-        // Redirect ke halaman lain atau tampilkan pesan sukses
+        const user = userCredential.user;
+        // Memperbarui profil pengguna dengan nama lengkap
+        updateProfile(user, {
+          displayName: fullName,
+        })
+          .then(() => {
+            console.log("Profile updated successfully");
+            navigate("/login");
+          })
+          .catch((error) => {
+            console.error("Error updating profile:", error);
+            // Tampilkan pesan error ke pengguna
+          });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Error creating user:", error);
         // Tampilkan pesan error ke pengguna
       });
   };
@@ -67,6 +80,22 @@ export const RegisterFirebase = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="full-name" className="sr-only">
+                Nama Lengkap
+              </label>
+              <input
+                id="full-name"
+                name="full-name"
+                type="text"
+                autoComplete="name"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="Nama Lengkap"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
               />
             </div>
           </div>
