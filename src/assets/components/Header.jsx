@@ -52,9 +52,9 @@ export const Header = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex flex-shrink-0 items-center">
+                  <Link to="/" className="flex flex-shrink-0 items-center">
                     <img className="h-8 w-auto" src="amikom.png" alt="Your Company" />
-                  </div>
+                  </Link>
                   <div className="hidden sm:ml-6 sm:w-full sm:justify-center sm:flex lg:w-full lg:justify-center lg:flex">
                     <div className="flex space-x-4 ">
                       {navigation.map((item) => (

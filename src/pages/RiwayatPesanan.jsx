@@ -16,7 +16,16 @@ export const RiwayatPesanan = () => {
         axios
           .get(riwayatUrl)
           .then((response) => {
-            setRiwayat(response.data || {});
+            // Filter out any null values
+            const validRiwayat = response.data
+              ? Object.keys(response.data).reduce((orders, orderId) => {
+                  if (response.data[orderId]) {
+                    orders[orderId] = response.data[orderId];
+                  }
+                  return orders;
+                }, {})
+              : {};
+            setRiwayat(validRiwayat);
             setLoading(false);
           })
           .catch((error) => {
@@ -48,24 +57,29 @@ export const RiwayatPesanan = () => {
           {Object.keys(riwayat).length === 0 ? (
             <div className="text-center text-purple-500">Tidak ada riwayat pesanan.</div>
           ) : (
-            Object.keys(riwayat).map((orderId) => (
-              <div key={orderId} className="p-6 border border-purple-200 bg-white rounded-lg shadow-lg">
-                <h3 className="font-semibold text-purple-600 mb-4">Pesanan ID: {orderId}</h3>
-                {Object.keys(riwayat[orderId]).map((itemId) => {
-                  const item = riwayat[orderId][itemId];
-                  return (
-                    <div key={itemId} className="flex items-center space-x-4 mb-4 last:mb-0">
-                      <img className="w-24 h-24 object-cover rounded" src={`assets/images/${item.product.category.nama.toLowerCase()}/${item.product.gambar}`} alt={item.product.nama} />
-                      <div className="flex-1">
-                        <div className="font-medium text-purple-800">{item.product.nama}</div>
-                        <div className="text-sm text-purple-500">Jumlah: {item.jumlah}</div>
-                        <div className="text-sm text-purple-600">Total: {(item.product.harga * item.jumlah).toLocaleString()} IDR</div>
+            Object.keys(riwayat).map((orderId) => {
+              const order = riwayat[orderId];
+              if (!order) return null; // Skip over null or undefined orders
+              return (
+                <div key={orderId} className="p-6 border border-purple-200 bg-white rounded-lg shadow-lg">
+                  <h3 className="font-semibold text-purple-600 mb-4">Pesanan ID: {orderId}</h3>
+                  {Object.keys(order).map((itemId) => {
+                    const item = order[itemId];
+                    if (!item || !item.product) return null; // Skip over null or undefined items
+                    return (
+                      <div key={itemId} className="flex items-center space-x-4 mb-4 last:mb-0">
+                        <img className="w-24 h-24 object-cover rounded" src={`assets/images/${item.product.category.nama.toLowerCase()}/${item.product.gambar}`} alt={item.product.nama} />
+                        <div className="flex-1">
+                          <div className="font-medium text-purple-800">{item.product.nama}</div>
+                          <div className="text-sm text-purple-500">Jumlah: {item.jumlah}</div>
+                          <div className="text-sm text-purple-600">Total: {(item.product.harga * item.jumlah).toLocaleString()} IDR</div>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))
+                    );
+                  })}
+                </div>
+              );
+            })
           )}
         </div>
       </div>

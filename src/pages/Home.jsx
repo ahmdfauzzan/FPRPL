@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // Import signOut dari firebase/auth
 import app from "./firebase"; // Asumsikan ini adalah path yang benar ke konfigurasi Firebase Anda
 
-import { v4 as uuidv4 } from "uuid";
-
 export default function Home() {
   const [menus, setMenus] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -48,31 +46,26 @@ export default function Home() {
       navigate("/login");
       return;
     }
-
+  
     const cartUrl = `https://finalrpl-50ec8-default-rtdb.asia-southeast1.firebasedatabase.app/keranjangs/${user.uid}.json`;
-
+  
     axios
       .get(cartUrl)
       .then((response) => {
-        console.log("Response Data:", response.data);
-        const currentCart = response.data || [];
-        const existingItemIndex = currentCart.findIndex((item) => item.product.id === menu.id);
-
-        if (existingItemIndex !== -1) {
-          currentCart[existingItemIndex].jumlah += 1;
-          currentCart[existingItemIndex].total_harga += menu.harga;
+        // Pastikan response.data bukan null dan merupakan objek
+        const currentCart = response.data && typeof response.data === 'object' ? response.data : {};
+        if (currentCart[menu.id]) {
+          // Pastikan item tidak null sebelum mengupdate
+          currentCart[menu.id].jumlah = (currentCart[menu.id].jumlah || 0) + 1;
+          currentCart[menu.id].total_harga = (currentCart[menu.id].total_harga || 0) + menu.harga;
         } else {
-          const newCartItem = {
-            id: currentCart.length + 1,
+          currentCart[menu.id] = {
             jumlah: 1,
-            product: menu,
             total_harga: menu.harga,
+            product: menu,
           };
-          currentCart.push(newCartItem);
         }
-
-        console.log(currentCart, "currencart");
-
+  
         return axios.put(cartUrl, currentCart);
       })
       .then(() => {
@@ -82,6 +75,7 @@ export default function Home() {
         console.error("Failed to update cart", error);
       });
   };
+  
 
   return (
     <div className="bg-gray-100 min-h-screen">
