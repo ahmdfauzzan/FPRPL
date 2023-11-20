@@ -24,6 +24,9 @@ export const Header = () => {
     // Hapus token dari cookies
     Cookies.remove("userToken");
     Cookies.remove("userUid");
+    Cookies.remove("photoURL");
+    Cookies.remove("email");
+    Cookies.remove("fullName");
     // Logout pengguna
     signOut(auth)
       .then(() => {
