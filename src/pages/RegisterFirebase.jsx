@@ -14,6 +14,7 @@ export const RegisterFirebase = () => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        
         const user = userCredential.user;
         // Memperbarui profil pengguna dengan nama lengkap
         updateProfile(user, {
@@ -21,6 +22,7 @@ export const RegisterFirebase = () => {
         })
           .then(() => {
             console.log("Profile updated successfully");
+            alert("berhasil buat akun")
             navigate("/login");
           })
           .catch((error) => {
@@ -29,7 +31,7 @@ export const RegisterFirebase = () => {
           });
       })
       .catch((error) => {
-        console.error("Error creating user:", error);
+        alert("Error creating user:");
         // Tampilkan pesan error ke pengguna
       });
   };
