@@ -23,8 +23,7 @@ export const LoginFirebase = () => {
         navigate("/");
       })
       .catch((error) => {
-        alert(error.message);
-        console.log(error);
+        console.error(error);
       });
   };
 

@@ -4,6 +4,7 @@ export const RegisterUser = (input) => {
   return axios
     .post(`${process.env.REACT_APP_SERVER}/api/v1/auth/register`, input)
     .then((response) => {
+      alert("register berhasil")
       window.location.href = "/login";
 
       console.log(response);
