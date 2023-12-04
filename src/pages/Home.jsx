@@ -80,7 +80,7 @@ export default function Home() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
-      <h2 className="text-center text-2xl font-semibold mb-6 mt-2">Daftar Menu</h2>
+      <h2 className="text-center text-3xl font-semibold mb-6 mt-2">Daftar Menu</h2>
       <div className="text-center mb-4">
         <label htmlFor="categoryFilter">Pilih kategori menu: </label>
         <select id="categoryFilter" onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory} className="p-2">
