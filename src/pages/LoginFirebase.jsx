@@ -29,9 +29,12 @@ export const LoginFirebase = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-full max-w-xs">
+    <div className="bg-gray-100 flex justify-center items-center h-screen">
+      <div className="w-full max-w-md">
         <form onSubmit={handleLogin} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-extrabold text-gray-900">Login</h2>
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email

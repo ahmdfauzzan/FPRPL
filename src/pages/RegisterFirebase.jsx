@@ -14,7 +14,6 @@ export const RegisterFirebase = () => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        
         const user = userCredential.user;
         // Memperbarui profil pengguna dengan nama lengkap
         updateProfile(user, {
@@ -22,7 +21,7 @@ export const RegisterFirebase = () => {
         })
           .then(() => {
             console.log("Profile updated successfully");
-            alert("berhasil buat akun")
+            alert("berhasil buat akun");
             navigate("/login");
           })
           .catch((error) => {
@@ -51,8 +50,8 @@ export const RegisterFirebase = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleRegister}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
+          <div className="rounded-md shadow-sm space-y-4">
+            <div className="mb-4">
               <label htmlFor="email-address" className="sr-only">
                 Alamat Email
               </label>
@@ -62,13 +61,13 @@ export const RegisterFirebase = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Alamat Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
+            <div className="mb-4">
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
@@ -78,13 +77,15 @@ export const RegisterFirebase = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div>
+            <div className="mb-4">
+              {" "}
+              {/* Tambahkan kelas mb-4 untuk memberi ruang */}
               <label htmlFor="full-name" className="sr-only">
                 Nama Lengkap
               </label>
@@ -94,7 +95,7 @@ export const RegisterFirebase = () => {
                 type="text"
                 autoComplete="name"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Nama Lengkap"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
