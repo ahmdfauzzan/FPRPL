@@ -46,14 +46,14 @@ export default function Home() {
       navigate("/login");
       return;
     }
-  
+
     const cartUrl = `https://finalrpl-50ec8-default-rtdb.asia-southeast1.firebasedatabase.app/keranjangs/${user.uid}.json`;
-  
+
     axios
       .get(cartUrl)
       .then((response) => {
         // Pastikan response.data bukan null dan merupakan objek
-        const currentCart = response.data && typeof response.data === 'object' ? response.data : {};
+        const currentCart = response.data && typeof response.data === "object" ? response.data : {};
         if (currentCart[menu.id]) {
           // Pastikan item tidak null sebelum mengupdate
           currentCart[menu.id].jumlah = (currentCart[menu.id].jumlah || 0) + 1;
@@ -65,7 +65,7 @@ export default function Home() {
             product: menu,
           };
         }
-  
+
         return axios.put(cartUrl, currentCart);
       })
       .then(() => {
@@ -75,12 +75,11 @@ export default function Home() {
         console.error("Failed to update cart", error);
       });
   };
-  
 
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
-      <h2 className="text-center text-3xl font-semibold mb-6 mt-2">Daftar Menu</h2>
+      <h2 className="text-center text-3xl font-semibold mb-6 mt-6">Daftar Menu</h2>
       <div className="text-center mb-4">
         <label htmlFor="categoryFilter">Pilih kategori menu: </label>
         <select id="categoryFilter" onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory} className="p-2">

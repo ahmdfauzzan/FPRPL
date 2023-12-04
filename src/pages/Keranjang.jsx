@@ -90,8 +90,9 @@ export const Keranjang = () => {
   const isKeranjangEmpty = Object.keys(keranjang).length === 0;
 
   return (
-    <div>
+    <div className="bg-gray-100 min-h-screen">
       <Header />
+      <h2 className="text-3xl font-semibold mb-6 mt-6 text-center">Keranjang</h2>
       {isKeranjangEmpty ? (
         <div className="text-center mt-10">Belum ada produk di keranjang</div>
       ) : (
